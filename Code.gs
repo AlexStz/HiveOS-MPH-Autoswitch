@@ -1,8 +1,9 @@
 /*
 README FIRST:
 
-ORIGINAL VERSION by Sorg.
-Feel free to donate:
+ORIGINAL VERSION by Grostim.
+https://github.com/grostim/HiveOS-MPH-Autoswitch
+Feel free to Fork and redistribute !
 
 
 DISCLAIMER: 
@@ -13,6 +14,11 @@ It may also cause some security breach.
 If you notice something, please open a github ticket.
 
 I AM NOT RESPONSIBLE IF YOU LOOSE MINING TIME, PROFIT OPPORTUNITY, COINS, SLEEP, VIRGINITY OR WHATEVER BECAUSE OF THIS SCRIPT. 
+
+Feel free to pay my next beer:
+ETH: 0x513E9DBA26685c26f14045d2156fAdcE4f4B42C0
+LTC: LbkqWEgG6GvcuwYDE6a9g6s8SgJ9cQrszp
+ZCL: t1LbHFDD5SiQ4rtZHyqBeA4KQZSY4ZMeWwA
 
 
 This script is designed for people mining with MiningPoolHub and HiveOS. It gives you the opportunity to switch automatically to the most profitable alorithm for your rig.
