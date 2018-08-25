@@ -302,12 +302,13 @@ function doPost(e) {
         break;
       case '/stopAutoswitch': 
         deleteTrigger();
+        TelegramPostMessage(Journal)
         break;
       case '/runAutoswitch': 
         deleteTrigger();
         Journal=''
-        createTimeDrivenTriggers(60);
-        TelegramPostMessage(message)
+        createTimeDrivenTrigger(30);
+        TelegramPostMessage(Journal)
         break;    
       default:
         TelegramPostMessage("Sorry, Command not found: "+msg.txt);
@@ -367,9 +368,9 @@ function deleteTrigger() {
 
 /**
  * Creates a two time-driven triggers.
- * @param {int} Texte The text message to be sent.
+ * @param {int} minutes interval in minutes at which the autoswitching should be run. (5,10,15 or 30)
  */
-function createTimeDrivenTriggers(minutes) {
+function createTimeDrivenTrigger(minutes) {
   ScriptApp.newTrigger('getMaxProfit')
       .timeBased()
       .everyMinutes(minutes)
