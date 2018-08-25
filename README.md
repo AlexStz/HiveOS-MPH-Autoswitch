@@ -6,7 +6,7 @@ A Telegram bot that will do Multi-algo switching on Mining Pool Hub if you use H
 DISCLAIMER: 
 I am not a coder.
 This script was made with the good-old "quick and dirty" way of programming.
-I may (and most probably will) not work on some occasion. It has been only partially tested.
+It may (and most probably will) not work on some occasion. It has been only partially tested.
 It may also cause some security breach. 
 If you notice something, please open a github ticket.
 
