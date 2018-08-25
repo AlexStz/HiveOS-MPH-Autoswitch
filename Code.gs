@@ -101,11 +101,9 @@ You will be replied with a list of your flightsheets and corresponding ID.
 
 15) ask your bot: /optimize . The script will check if you are running the most profitable algorithm, and if not, it will run the new one.
 
-16) Set a "timer" trigger to start automatically the getMaxProfit() function every hour (or more, or less... test, and check what you prefer).
+16) ask your bot : /runAutoswitch and it will try to switch your mining every 60 minutes.
 
 THIS IS IT. There are no more instructions below, but feel free to continue reading and enjoy my dirty javascript !
-
-
 
 */
 
@@ -289,6 +287,8 @@ function doPost(e) {
         "/help : List of the available commands\n"+
         "/getFS : List of the flightsheeets\n"+
         "/optimize : Change Algorithm if necessary\n"+
+        "/stopAutoswitch : Stop the Autoswitch\n"+
+        "/runAutoswitch : run the Autoswitch every 60 minutes\n"+
         "/infoMining : Stats about current Mining operation\n");
         break;
       case '/getFS': 
@@ -299,13 +299,26 @@ function doPost(e) {
         break;
       case '/infoMining': 
         getWorkerStat(farm_id, worker_id);
-        break;        
+        break;
+      case '/stopAutoswitch': 
+        deleteTrigger();
+        break;
+      case '/runAutoswitch': 
+        deleteTrigger();
+        Journal=''
+        createTimeDrivenTriggers(60);
+        TelegramPostMessage(message)
+        break;    
       default:
         TelegramPostMessage("Sorry, Command not found: "+msg.txt);
     }
   }
 }
 
+/**
+ * Deletes a trigger.
+ * @param {string} Texte The text message to be sent.
+ */
 function TelegramPostMessage(Texte) {
         var payload = {
           'method': 'sendMessage',
@@ -324,6 +337,9 @@ function TelegramPostMessage(Texte) {
         UrlFetchApp.fetch('https://api.telegram.org/bot' + API_TOKEN + '/', data);
 }
 
+/**
+ * Set the Webhook for the Telegram Bot. Need to be run at least once, once the webapp is published.
+ */
 function setWebhook() {
   var payload = {
     'method': 'setWebhook',
@@ -335,4 +351,28 @@ function setWebhook() {
      }
   var result = UrlFetchApp.fetch('https://api.telegram.org/bot' + API_TOKEN + '/', data);
   Logger.log(result);
+}
+
+/**
+ * Deletes all triggers.
+ */
+function deleteTrigger() {
+  // Loop over all triggers.
+  var allTriggers = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < allTriggers.length; i++) {
+    ScriptApp.deleteTrigger(allTriggers[i]);
+  }
+  log('Auto switch desactivated')
+}
+
+/**
+ * Creates a two time-driven triggers.
+ * @param {int} Texte The text message to be sent.
+ */
+function createTimeDrivenTriggers(minutes) {
+  ScriptApp.newTrigger('getMaxProfit')
+      .timeBased()
+      .everyMinutes(minutes)
+      .create();
+    log('Auto switch activated every '+ minutes +' minutes')
 }
